@@ -16,19 +16,22 @@ class AplicativoPerguntas extends StatefulWidget {
 class AplicativoPerguntasState extends State<AplicativoPerguntas> {
   var countClick = 0;
   var score = 0;
-  List<String> userAnswers = [];
 
     void toAnswer(String answer) { 
       setState(() {
-        userAnswers.add(answer);
-
+        
         if(answer == questionsAndAnswers[countClick]['correct'] as String){
           score ++;
-        }
-
-        print(score);
+        }      
 
         countClick++;
+      });
+    }
+
+    void toReset() {
+      setState(() {
+        score = 0;
+        countClick = 0;
       });
     }
 
@@ -69,8 +72,12 @@ class AplicativoPerguntasState extends State<AplicativoPerguntas> {
     List<String> listAnswers = possibleCount() ? questionsAndAnswers[countClick]['answers'] as List<String>: [];
 
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Nunito',
+      ),
 
       home: Scaffold(
+        backgroundColor: Color(0xFFf1e9bb),        
 
         appBar: AppBar(
           title: Row(              
@@ -80,24 +87,36 @@ class AplicativoPerguntasState extends State<AplicativoPerguntas> {
                 padding: EdgeInsets.only(bottom: 100),  // não funcionou!              
               ),
               Text(
+                style: TextStyle(
+                  fontFamily: 'Bingo',
+                  fontSize: 78,
+                  color: Color.fromARGB(255, 63, 63, 63),
+                ),
+
                 'PersonQuiz',
                 
                 //textAlign: TextAlign.center, // centraliza o texto apenas
-                style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,              
-                ),
+                
               ),
 
               SizedBox(width: 10), // separa o texto da imagem
               
-              Image.asset('assets/images/interrogation.png', height: 43),
+              Image.asset('assets/images/interrogation.png', height: 52),
             ]
           ),
-          
 
+          bottom: PreferredSize(
+              preferredSize: Size.fromHeight(5), 
+              child: Container(
+                color: const Color.fromARGB(255, 96, 95, 95),
+                height: 2,
+              )
+            ),
+          
+          toolbarHeight: 100,
           centerTitle: true, // centraliza o conjunto (texto e icon)
-          backgroundColor: Color(0xFFfad3b2), // manter Color(0xFF_________),
+          backgroundColor: Color(0xFFf3c363), // manter Color(0xFF_________),
+          elevation: 0,          
         ),
 
         body: possibleCount() ? Column(
@@ -114,7 +133,7 @@ class AplicativoPerguntasState extends State<AplicativoPerguntas> {
               height: 45,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 48, 188, 231),
+                  backgroundColor: const Color(0xFFcf6123),
                   foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                 ),
 
@@ -123,6 +142,7 @@ class AplicativoPerguntasState extends State<AplicativoPerguntas> {
                   t,
                   style: TextStyle(
                     fontSize: 16,
+                    fontFamily: 'Nunito',                  
                   ),
                 ),
               ),
@@ -137,23 +157,70 @@ class AplicativoPerguntasState extends State<AplicativoPerguntas> {
 
           
 
-          children: [                    
-            Text(
-              'Parabéns, caro(a) ${questionsAndAnswers[4]['correct']} ${questionsAndAnswers[0]['correct']}. Você concluiu o jogo.',
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-                
+          children: [
+            Image.asset('assets/images/ok_icon.png'),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Parabéns, caro(a) ${questionsAndAnswers[4]['correct']} ${questionsAndAnswers[0]['correct']}. Você concluiu o jogo.',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Nunito',                
+                ),
+                textAlign: TextAlign.center,              
               ),
-              textAlign: TextAlign.center,
-              ),
+
+
+            ),
+            
+
+            SizedBox(height: 25),
 
             if(score == 5)
-              Text('Você acertou todas as perguntas!!!')
+              Text(
+                'Você acertou todas as perguntas!!!',
+                style: TextStyle(
+                  fontSize: 19,
+                  fontStyle: FontStyle.italic,
+                  fontFamily: 'Nunito',
+                )
+              )
 
             else
-              Text('Você acertou $score questões e errou ${5 - score}.')
+              Text(
+                'Você acertou $score questões e errou ${5 - score}.',
+                style: TextStyle(
+                  fontSize: 19,
+                  fontStyle: FontStyle.italic,
+                  fontFamily: 'Nunito',
+                )
+              )
+            
+            
+            , SizedBox(height: 25),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 100),
+              child: ElevatedButton(              
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFcf6123),
+                  foregroundColor: Color(0xFFffffff),
+                  minimumSize: Size(double.infinity, 45),                  
+                ),
+                onPressed: () => toReset(), 
+                child: Text(
+                  'Voltar',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Nunito',
+                      )
+                  )
+                ),
               
+            ),
+
+            
           ],
 
         ),

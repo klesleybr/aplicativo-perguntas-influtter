@@ -55,7 +55,26 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/interrogation.png
-    - assets/images/the_office.gif
+    - assets/images/ok_icon.png
+    
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: fonts/nunito/static/Nunito-Regular.ttf
+        - asset: fonts/nunito/static/Nunito-Italic.ttf
+          style: italic
+        - asset: fonts/nunito/static/Nunito-Bold.ttf
+          weight: 700
+    
+    - family: Bingo
+      fonts:
+        - asset: fonts/Bingo-Fiesta.ttf
+    
+    - family: Civil War Hotel
+      fonts:
+        - asset: fonts/The-Civil-War-Hotel.ttf
+          
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -92,3 +111,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+
+  
